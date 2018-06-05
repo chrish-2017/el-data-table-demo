@@ -1,5 +1,6 @@
-let apiServer = 'http://prod.domain'
-let mockServer = 'http://dsn.apizza.cc/mock/710f9fb77f08d7a01fce444be84dff6e'
+let apiServer = 'http://114.67.159.3:8081'
+let securityServer = 'http://119.29.28.59'
+let mockServer = 'http://yapi.demo.qunar.com/mock/9638'
 
 let axios = {
   proxy: true
@@ -7,10 +8,10 @@ let axios = {
 
 // 生产部署放到kong后面不代理
 if (process.env.mode == 'prod') {
-  axios = {
-    proxy: false,
-    baseURL: apiServer
-  }
+  // axios = {
+  //   proxy: false,
+  //   baseURL: apiServer
+  // }
 }
 
 module.exports = {
@@ -18,14 +19,14 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Pyramid Dashboard',
+    title: 'Stonehenge',
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
       {
         hid: 'description',
         name: 'description',
-        content: '组件市场管理平台, 适用于组件市场运营团队'
+        content: '开发平台'
       }
     ],
     link: [
@@ -42,6 +43,10 @@ module.exports = {
   */
   loading: {color: '#1890ff'},
   css: [{src: '~assets/global.styl', lang: 'stylus'}],
+  /**
+   * 把代码目录跟其他目录分离
+   */
+  srcDir: 'src/',
   /*
   ** Build configuration
   */
@@ -74,13 +79,13 @@ module.exports = {
   },
   router: {
     middleware: ['auth'],
-    base: process.env.mode == 'prod' ? '/pyramid-dashboard/' : '/'
+    base: process.env.mode == 'prod' ? '/stonehenge/' : '/'
   },
   plugins: [{src: '~/plugins/axios'}, {src: '~/plugins/element'}],
   modules: ['@nuxtjs/axios'],
   axios,
   proxy: {
-    '/security': apiServer,
-    '/pyramid': process.env.mode == 'dev' ? mockServer : apiServer
+    '/security': process.env.mode == 'dev' ? mockServer : securityServer,
+    '/generator': process.env.mode == 'dev' ? mockServer : apiServer
   }
 }
