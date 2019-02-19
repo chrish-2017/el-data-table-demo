@@ -9,6 +9,7 @@ let apiServer = process.env.API_SERVER
 let publicPath = process.env.PUBLIC_PATH || 'http://cdn.deepexi.com/'
 
 const config = {
+  projectNo: env.PROJECT_NO,
   aliIconFont: '',
   env: {
     mock: {
@@ -35,7 +36,9 @@ if (isProd && apiServer) {
 module.exports = {
   mode: 'spa',
   env: {
-    NO_LOGIN: process.env.NO_LOGIN
+    PROJECT_NO: config.projectNo,
+    NO_LOGIN: process.env.NO_LOGIN,
+    COOKIE_PATH: process.env.COOKIE_PATH || '/'
   },
   proxy: config.env[env.MODE],
   router: {
@@ -123,6 +126,6 @@ module.exports = {
       src: '~/plugins/element'
     }
   ],
-  modules: [['@nuxtjs/axios'], ['@nuxtjs/dotenv', {path: './'}]],
+  modules: ['@nuxtjs/axios'],
   axios
 }
