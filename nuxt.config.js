@@ -4,6 +4,7 @@ const env = process.env
 const isProd = env.MODE == 'prod'
 const mockServer =
   'https://easy-mock.com/mock/5c1b3895fe5907404e654045/femessage-mock'
+const localMockServer = 'http://127.0.0.1:3001/mock/11'
 
 // 不能以斜杠结尾
 let apiServer = process.env.API_SERVER
@@ -16,7 +17,8 @@ const config = {
   env: {
     mock: {
       '/deepexi-tenant': mockServer,
-      '/deepexi-permission': mockServer
+      '/deepexi-permission': mockServer,
+      '/el-data-table': localMockServer
     },
     dev: {
       '/deepexi-tenant': apiServer,
